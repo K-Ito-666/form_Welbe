@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from asyncio.windows_events import NULL
+#from asyncio.windows_events import NULL
 from turtle import width
 import streamlit as st
 import pandas as pd
