@@ -3,4 +3,4 @@ plotly
 numpy
 streamlit
 altair
-penpyxl
+openpyxl
