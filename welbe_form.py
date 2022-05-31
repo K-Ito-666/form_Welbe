@@ -33,7 +33,6 @@ st.selectbox(
 st.text_input('E：Dでその他を選択した方は場所をご記入ください')
 st.button('SUBMIT')
 
-'''
 st.subheader('Team Well-being Timeline')
 line = alt.Chart(df).mark_line(
     color='red'
@@ -45,6 +44,7 @@ line = alt.Chart(df).mark_line(
     height=400,
     )
 
+'''
 points = alt.Chart(df).mark_point().encode(
     x=alt.X('date:T'),
     y=alt.Y('P:Q')
