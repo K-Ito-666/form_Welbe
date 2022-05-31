@@ -5,13 +5,13 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-#import plotly.graph_objs as go
+import plotly.graph_objs as go
 from bokeh.plotting import figure
 import altair as alt
 import datetime
 import copy
-#import plotly.figure_factory as ff
-#import plotly.express as px
+import plotly.figure_factory as ff
+import plotly.express as px
 
 mood=["幸せではない","やや幸せではない","ふつう","やや幸せ","幸せ"]
 
