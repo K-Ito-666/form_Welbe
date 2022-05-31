@@ -3,5 +3,3 @@ plotly
 numpy
 streamlit
 altair
-copy
-datetime
