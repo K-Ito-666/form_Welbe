@@ -2,7 +2,7 @@ turtle==
 streamlit==
 pandas==
 numpy==
-plotly==
+plotly==5.8.0
 bokeh==
 altair==
 datetime==
