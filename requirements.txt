@@ -1,4 +1,8 @@
 pandas
 plotly
-scipy
+numpy
 streamlit
+bokeh
+altair
+copy
+datetime
