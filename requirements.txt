@@ -2,7 +2,6 @@ pandas
 plotly
 numpy
 streamlit
-figure
 altair
 copy
 datetime
