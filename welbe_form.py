@@ -6,7 +6,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 #import plotly.graph_objs as go
-from bokeh.plotting import figure
+#from bokeh.plotting import figure
 import altair as alt
 import datetime
 import copy
