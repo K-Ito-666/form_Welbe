@@ -1,62 +1,91 @@
-# -*- coding: utf-8 -*-
-
-#from asyncio.windows_events import NULL
-#from turtle import width
-import streamlit as st
 import pandas as pd
-import numpy as np
-#import plotly.graph_objs as go
-#from bokeh.plotting import figure
-import altair as alt
-import datetime
-import copy
-#import plotly.figure_factory as ff
-#import plotly.express as px
+import plotly.figure_factory as ff
+import plotly.graph_objects as go
+import streamlit as st
 
-mood=["幸せではない","やや幸せではない","ふつう","やや幸せ","幸せ"]
+st.set_page_config(layout="wide")
 
-def main():    
-    df = pd.read_excel('data/sample_dailyreport.xlsx')
-    st.title('個と場のWell-being日記')
-    st.text_area(label='A：3行程度で日記をご記入ください（仕事に無関係でも構いません）', height=12)
-    with st.expander("クリックで日記の入力例を表示します"):
-        st.caption('入力例1：今日仕事忙しすぎて朝しか食べてなくてさっき帰ってきたけど、こんな時間だし食べなくていっか。食べて太るよりは我慢して痩せた方が絶対いいし。いい方法ではないかもしれないけど痩せたい！')
-        st.caption('入力例2：珍しく上司から褒められた。あんまり褒めるところ見たことがない上司だから嬉しいけどヘンな感じ（笑）。たまにこういうことがあると頑張ろうって気になります。')
-        st.caption('入力例3：リモートワークの日だったけど、自分の空間でひたすら仕事できるっていうのは私には向いてる気がする。もう毎日リモートワークにしてほしい。')
-        st.caption('入力例4：今日は忙しすぎて死んだなー。これからやっと事務仕事。忙しくさせてもらってることに感謝。だけどさすがに堪えてる。たまには癒しがほしいっす。')
-        st.caption('入力例5：会社から帰る途中の場所にめちゃめちゃお気に入りのご飯屋さんを見つけた。なんてことない定食屋さんだけど、雰囲気含めて全部がツボ。そのうち誰か連れていきたい')
-        st.caption('入力例6：旦那は気楽に1人で外出出来ていいなー。決して娘と一緒に居るのが嫌な訳じゃないけど…たまには1人で買い物行きたいなー')
-        st.caption('入力例7：最近毎日雨降ってる気がする。洗濯物干せないとかはまだいいけど、何より傘持ったまま朝から満員電車に乗るのが辛すぎる。')
+# Data
+df = pd.read_csv('data/data_sample.csv')
+vars_cat = [var for var in df.columns if var.startswith('cat')]
+vars_cont = [var for var in df.columns if var.startswith('cont')]
 
-    st.select_slider("B：あなたは今日一日幸せでしたか？",options=mood,value="ふつう")
-    st.select_slider('C：チーム全体としては，今日一日幸せだったと思いますか？',options=mood,value="ふつう")
-    st.selectbox(
-        'D：業務中，主に滞在した場所をお選び下さい',
-        ('社内の自席', '会議スペース', 'オープンスペース', '自宅', 'その他')
-        )
-    st.text_input('E：Dでその他を選択した方は場所をご記入ください')
-    st.button('SUBMIT')
+# Graph (Pie Chart in Sidebar)
+df_target = df[['id', 'target']].groupby('target').count() / len(df)
+fig_target = go.Figure(data=[go.Pie(labels=df_target.index,
+                                    values=df_target['id'],
+                                    hole=.3)])
+fig_target.update_layout(showlegend=False,
+                         height=200,
+                         margin={'l': 20, 'r': 60, 't': 0, 'b': 0})
+fig_target.update_traces(textposition='inside', textinfo='label+percent')
 
-    st.subheader('Team Well-being Timeline')
-    line = alt.Chart(df).mark_line(
-        color='red'
-    ).encode(
-        x=alt.X('date:T',axis=alt.Axis(format="%m月%d日",labelFontSize=14, ticks=False, titleFontSize=18,title='日付')),
-        y=alt.Y('mean(P):Q',axis=alt.Axis(titleFontSize=18, title='Team Well-being'))
-    ).properties(
-        width=650,
-        height=400,
-        )
+# Layout (Sidebar)
+st.sidebar.markdown("## Settings")
+cat_selected = st.sidebar.selectbox('Categorical Variables', vars_cat)
+cont_selected = st.sidebar.selectbox('Continuous Variables', vars_cont)
+cont_multi_selected = st.sidebar.multiselect('Correlation Matrix', vars_cont,
+                                             default=vars_cont)
+st.sidebar.markdown("## Target Variables")
+st.sidebar.plotly_chart(fig_target, use_container_width=True)
 
-    points = alt.Chart(df).mark_point().encode(
-        x=alt.X('date:T'),
-        y=alt.Y('P:Q')
-        ).properties(
-            width=650,
-            height=400
-            )
-            
-    st.write(points+line)
+# Categorical Variable Bar Chart in Content
+df_cat = df.groupby([cat_selected, 'target']).count()[['id']].reset_index()
 
-if __name__ == '__main__':
-    main()
+cat0 = df_cat[df_cat['target'] == 0]
+cat1 = df_cat[df_cat['target'] == 1]
+
+fig_cat = go.Figure(data=[
+    go.Bar(name='target=0', x=cat0[cat_selected], y=cat0['id']),
+    go.Bar(name='target=1', x=cat1[cat_selected], y=cat1['id'])
+])
+
+fig_cat.update_layout(height=300,
+                      width=500,
+                      margin={'l': 20, 'r': 20, 't': 0, 'b': 0},
+                      legend=dict(
+                          yanchor="top",
+                          y=0.99,
+                          xanchor="right",
+                          x=0.99),
+                      barmode='stack')
+fig_cat.update_xaxes(title_text=None)
+fig_cat.update_yaxes(title_text='# of samples')
+
+# Continuous Variable Distribution in Content
+li_cont0 = df[df['target'] == 0][cont_selected].values.tolist()
+li_cont1 = df[df['target'] == 1][cont_selected].values.tolist()
+
+cont_data = [li_cont0, li_cont1]
+group_labels = ['target=0', 'target=1']
+
+fig_cont = ff.create_distplot(cont_data, group_labels,
+                              show_hist=False,
+                              show_rug=False)
+fig_cont.update_layout(height=300,
+                       width=500,
+                       margin={'l': 20, 'r': 20, 't': 0, 'b': 0},
+                       legend=dict(
+                           yanchor="top",
+                           y=0.99,
+                           xanchor="right",
+                           x=0.99)
+                       )
+
+# Correlation Matrix in Content
+df_corr = df[cont_multi_selected].corr()
+fig_corr = go.Figure([go.Heatmap(z=df_corr.values,
+                                 x=df_corr.index.values,
+                                 y=df_corr.columns.values)])
+fig_corr.update_layout(height=300,
+                       width=1000,
+                       margin={'l': 20, 'r': 20, 't': 0, 'b': 0})
+
+# Layout (Content)
+left_column, right_column = st.columns(2)
+left_column.subheader('Categorical Variable Distribution: ' + cat_selected)
+right_column.subheader('Continuous Variable Distribution: ' + cont_selected)
+left_column.plotly_chart(fig_cat)
+right_column.plotly_chart(fig_cont)
+st.subheader('Correlation Matrix')
+st.plotly_chart(fig_corr)
