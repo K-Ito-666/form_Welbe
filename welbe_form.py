@@ -44,7 +44,7 @@ line = alt.Chart(df).mark_line(
     height=400,
     )
 
-'''
+
 points = alt.Chart(df).mark_point().encode(
     x=alt.X('date:T'),
     y=alt.Y('P:Q')
@@ -54,4 +54,3 @@ points = alt.Chart(df).mark_point().encode(
         )
 
 st.write(points+line)
-'''
