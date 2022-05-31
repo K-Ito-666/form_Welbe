@@ -16,7 +16,7 @@ import copy
 mood=["幸せではない","やや幸せではない","ふつう","やや幸せ","幸せ"]
 
 def main():    
-    df = pd.read_excel('sample_dailyreport.xlsx')
+    df = pd.read_excel('data/sample_dailyreport.xlsx')
     st.title('個と場のWell-being日記')
     st.text_area(label='A：3行程度で日記をご記入ください（仕事に無関係でも構いません）', height=12)
     with st.expander("クリックで日記の入力例を表示します"):
