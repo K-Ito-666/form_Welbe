@@ -12,9 +12,8 @@ import plotly.express as px
 
 mood=["幸せではない","やや幸せではない","ふつう","やや幸せ","幸せ"]
 
-df = pd.read_excel('data/sample_dailyreport.xlsx')
 st.title('個と場のWell-being日記')
-st.text_area(label='A：3行程度で日記をご記入ください（仕事に無関係でも構いません）', height=12)
+diary = st.text_area(label='A：3行程度で日記をご記入ください（仕事に無関係でも構いません）', height=12)
 with st.expander("クリックで日記の入力例を表示します"):
     st.caption('入力例1：今日仕事忙しすぎて朝しか食べてなくてさっき帰ってきたけど、こんな時間だし食べなくていっか。食べて太るよりは我慢して痩せた方が絶対いいし。いい方法ではないかもしれないけど痩せたい！')
     st.caption('入力例2：珍しく上司から褒められた。あんまり褒めるところ見たことがない上司だから嬉しいけどヘンな感じ（笑）。たまにこういうことがあると頑張ろうって気になります。')
@@ -24,15 +23,18 @@ with st.expander("クリックで日記の入力例を表示します"):
     st.caption('入力例6：旦那は気楽に1人で外出出来ていいなー。決して娘と一緒に居るのが嫌な訳じゃないけど…たまには1人で買い物行きたいなー')
     st.caption('入力例7：最近毎日雨降ってる気がする。洗濯物干せないとかはまだいいけど、何より傘持ったまま朝から満員電車に乗るのが辛すぎる。')
 
-st.select_slider("B：あなたは今日一日幸せでしたか？",options=mood,value="ふつう")
-st.select_slider('C：チーム全体としては，今日一日幸せだったと思いますか？',options=mood,value="ふつう")
-st.selectbox(
+my_happy = st.select_slider("B：あなたは今日一日幸せでしたか？",options=mood,value="ふつう")
+group_happy = st.select_slider('C：チーム全体としては，今日一日幸せだったと思いますか？',options=mood,value="ふつう")
+location = st.selectbox(
     'D：業務中，主に滞在した場所をお選び下さい',
     ('社内の自席', '会議スペース', 'オープンスペース', '自宅', 'その他')
     )
-st.text_input('E：Dでその他を選択した方は場所をご記入ください')
-st.button('SUBMIT')
+location_other = st.text_input('E：Dでその他を選択した方は場所をご記入ください')
 
+if st.button('SUBMIT') == True:
+  st.write(diary,my_happy,group_happy,location,location_other)
+
+df = pd.read_excel('data/sample_dailyreport.xlsx')
 st.subheader('Team Well-being Timeline')
 line = alt.Chart(df).mark_line(
     color='red'
