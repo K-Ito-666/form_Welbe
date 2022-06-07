@@ -11,7 +11,7 @@ import plotly.figure_factory as ff
 import plotly.express as px
 
 mood=["幸せではない","やや幸せではない","ふつう","やや幸せ","幸せ"]
-happy_score = [,0,1,2,3,4,5,6,7,8,9,10]
+happy_score = ['',0,1,2,3,4,5,6,7,8,9,10]
 
 st.title('個と場のWell-being日記')
 diary = st.text_area(label='A：3行程度で日記をご記入ください（仕事に無関係でも構いません）', height=12)
