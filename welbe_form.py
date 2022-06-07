@@ -11,6 +11,7 @@ import plotly.figure_factory as ff
 import plotly.express as px
 
 mood=["幸せではない","やや幸せではない","ふつう","やや幸せ","幸せ"]
+happy_score = [0,1,2,3,4,5,6,7,8,9,10]
 
 st.title('個と場のWell-being日記')
 diary = st.text_area(label='A：3行程度で日記をご記入ください（仕事に無関係でも構いません）', height=12)
@@ -23,8 +24,8 @@ with st.expander("クリックで日記の入力例を表示します"):
     st.caption('入力例6：旦那は気楽に1人で外出出来ていいなー。決して娘と一緒に居るのが嫌な訳じゃないけど…たまには1人で買い物行きたいなー')
     st.caption('入力例7：最近毎日雨降ってる気がする。洗濯物干せないとかはまだいいけど、何より傘持ったまま朝から満員電車に乗るのが辛すぎる。')
 
-my_happy = st.select_slider("B：あなたは今日一日幸せでしたか？",options=mood,value=('幸せではない','幸せ'))
-group_happy = st.select_slider('C：チーム全体としては，今日一日幸せだったと思いますか？',options=mood,value=None)
+my_happy = st.radio("B：あなたは今日一日幸せでしたか？（0点:とても不幸／10点：とても幸せ）",options=happy_score,index=None)
+group_happy = st.radio('C：チーム全体としては，今日一日幸せだったと思いますか？（0点:とても不幸／10点：とても幸せ）',options=happy_score,index=None)
 location = st.selectbox(
     'D：業務中，主に滞在した場所をお選び下さい',
     ('社内の自席', '会議スペース', 'オープンスペース', '自宅', 'その他')
