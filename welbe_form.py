@@ -30,7 +30,7 @@ location = st.selectbox(
     'D：業務中，主に滞在した場所をお選び下さい',
     ('社内の自席', '会議スペース', 'オープンスペース', '自宅', 'その他')
     )
-location_other = st.text_input('E：Dでその他を選択した方は場所をご記入ください')
+location_other = st.text_input('E：Dでその他を選択した方は差し支えない範囲で場所をご記入ください')
 
 if st.button('SUBMIT') == True:
   st.write(diary,my_happy,group_happy,location,location_other)
