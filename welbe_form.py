@@ -23,7 +23,7 @@ with st.expander("クリックで日記の入力例を表示します"):
     st.caption('入力例6：旦那は気楽に1人で外出出来ていいなー。決して娘と一緒に居るのが嫌な訳じゃないけど…たまには1人で買い物行きたいなー')
     st.caption('入力例7：最近毎日雨降ってる気がする。洗濯物干せないとかはまだいいけど、何より傘持ったまま朝から満員電車に乗るのが辛すぎる。')
 
-my_happy = st.select_slider("B：あなたは今日一日幸せでしたか？",options=mood,value=None)
+my_happy = st.select_slider("B：あなたは今日一日幸せでしたか？",options=mood,value=(1,5))
 group_happy = st.select_slider('C：チーム全体としては，今日一日幸せだったと思いますか？',options=mood,value=None)
 location = st.selectbox(
     'D：業務中，主に滞在した場所をお選び下さい',
