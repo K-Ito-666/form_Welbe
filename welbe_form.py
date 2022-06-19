@@ -9,11 +9,9 @@ import datetime
 import copy
 import plotly.figure_factory as ff
 import plotly.express as px
-
 import json
 import streamlit_authenticator as stauth
 
-mood=["幸せではない","やや幸せではない","ふつう","やや幸せ","幸せ"]
 happy_score = ['選択して下さい（0〜10点）',0,1,2,3,4,5,6,7,8,9,10]
 today = datetime.date.today()
 day_list=[]
