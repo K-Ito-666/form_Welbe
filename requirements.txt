@@ -4,3 +4,5 @@ numpy
 streamlit
 altair
 openpyxl
+json
+streamlit_authenticator
