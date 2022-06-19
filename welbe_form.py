@@ -93,8 +93,8 @@ def main():
 
 # ユーザ情報。引数
 names = ['admin','003', '004'] 
-usernames = ['admin','003', '004']  # 入力フォームに入力された値と合致するか確認される
-passwords = ['admin','003', '004']  # 入力フォームに入力された値と合致するか確認される
+usernames = ['admin','001','002','003', '004']  # 入力フォームに入力された値と合致するか確認される
+passwords = ['admin','001','002','003', '004']  # 入力フォームに入力された値と合致するか確認される
 
 # パスワードをハッシュ化。 リスト等、イテラブルなオブジェクトである必要がある
 hashed_passwords = stauth.Hasher(passwords).generate()
@@ -102,7 +102,7 @@ hashed_passwords = stauth.Hasher(passwords).generate()
 # cookie_expiry_daysでクッキーの有効期限を設定可能。
 #認証情報の保持期間を設定でき値を0とするとアクセス毎に認証を要求する
 authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
-    'some_cookie_name', 'some_signature_key', cookie_expiry_days=0)
+    'some_cookie_name', 'some_signature_key', cookie_expiry_days=1)
 
 # ログインメソッドで入力フォームを配置
 st.title('個と場のWell-being日記')
