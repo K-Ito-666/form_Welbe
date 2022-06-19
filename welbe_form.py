@@ -40,7 +40,7 @@ def main():
 
     if st.button('SUBMIT') == True:
         st.write('入力完了しました！')
-        f=open('dailyreport.json','r')
+        f=open('data/dailyreport.json','r')
         j_r = json.load(f)
         if str(day) not in j_r.keys():
             j_r[str(day)]={'text':{},'my_happy':{},'group_happy':{},'location':{},'location_other':{}}
@@ -50,10 +50,10 @@ def main():
         j_r[str(day)]['location'][name]=location
         j_r[str(day)]['location_other'][name]=location_other
         
-        with open('./data/dailyreport.json','w') as j_w:
+        with open('data/dailyreport.json','w') as j_w:
             json.dump(j_r,j_w)
 
-    with open('./data/dailyreport.json','r') as j_r2:
+    with open('data/dailyreport.json','r') as j_r2:
         dictDB = json.load(j_r2)
         for days in dictDB.keys():
             if name in dictDB[days]['text'].keys():
@@ -68,7 +68,7 @@ def main():
         st.table(data=df_diary)
 
 
-    df = pd.read_excel('./data/sample_dailyreport.xlsx')
+    df = pd.read_excel('data/sample_dailyreport.xlsx')
     st.subheader('Team Well-being Timeline')
     line = alt.Chart(df).mark_line(
         color='red'
