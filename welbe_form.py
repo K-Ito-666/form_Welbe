@@ -97,10 +97,10 @@ def main():
         height=400,
         )
 
-    points = alt.Chart(df_saved_happy).mark_point().encode(
+    points = alt.Chart(df_saved_happy).mark_circle().encode(
         x=alt.X('date:T'),
         y=alt.Y('happy_score:Q'),
-        size='Acceleration'
+        size = 'count()'
         ).properties(
             width=650,
             height=400
