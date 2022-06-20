@@ -52,10 +52,10 @@ def main():
         j_r[str(day)]['location'][name]=location
         j_r[str(day)]['location_other'][name]=location_other
         
-        with open('./data/dailyreport.json','w') as j_w:
+        with open('data/dailyreport.json','w') as j_w:
             json.dump(j_r,j_w)
 
-    with open('./data/dailyreport.json','r') as j_r2:
+    with open('data/dailyreport.json','r') as j_r2:
         dictDB = json.load(j_r2)
         for days in dictDB.keys():
             if name in dictDB[days]['text'].keys():
@@ -70,7 +70,7 @@ def main():
         st.table(data=df_diary)
 
 
-    with open('./data/dailyreport.json','r') as j_r_saved:
+    with open('data/dailyreport.json','r') as j_r_saved:
         dict_diaryDB = json.load(j_r_saved)
 
     happy_day_list=[]
