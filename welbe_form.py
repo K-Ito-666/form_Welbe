@@ -99,7 +99,8 @@ def main():
 
     points = alt.Chart(df_saved_happy).mark_point().encode(
         x=alt.X('date:T'),
-        y=alt.Y('happy_score:Q')
+        y=alt.Y('happy_score:Q'),
+        size='Acceleration'
         ).properties(
             width=650,
             height=400
