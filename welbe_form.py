@@ -42,7 +42,7 @@ def main():
 
     if st.button('SUBMIT') == True:
         st.write('入力完了しました！')
-        f=open('dailyreport.json','r')
+        f=open('data/dailyreport.json','r')
         j_r = json.load(f)
         if str(day) not in j_r.keys():
             j_r[str(day)]={'text':{},'my_happy':{},'group_happy':{},'location':{},'location_other':{}}
