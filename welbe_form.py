@@ -85,7 +85,6 @@ def main():
     df_saved_happy['date']=happy_day_list
     df_saved_happy['happy_score']=happy_list
 
-    st.table(df_saved_happy)
 
     st.subheader('Team Well-being Timeline')
     line = alt.Chart(df_saved_happy).mark_line(
