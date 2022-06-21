@@ -50,9 +50,11 @@ def main():
         j_r[str(day)]['group_happy'][name]=group_happy
         j_r[str(day)]['location'][name]=location
         j_r[str(day)]['location_other'][name]=location_other
+        f.close()
         
-        with open('data/dailyreport.json','w') as j_w:
-            json.dump(j_r,j_w)
+        f_w = open('data/dailyreport.json','w')
+        json.dump(j_r,f_w)
+        f_w.close()
 
     with open('data/dailyreport.json','r') as j_r2:
         dictDB = json.load(j_r2)
