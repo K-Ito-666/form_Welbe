@@ -102,7 +102,7 @@ def main():
             x=alt.X('date:T'),
             y=alt.Y('happy_score:Q'),
             size = 'count()',
-            legend = {description='入力数'}
+            description='入力数'
             ).properties(
                 width=650,
                 height=400
