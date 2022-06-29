@@ -39,7 +39,7 @@ def main():
         )
     location_other = st.text_input('E：Dでその他を選択した方は，差し支えない範囲で場所をご記入ください')
 
-    if st.button('SUBMIT') == True:
+    if st.button('登録') == True:
         st.write('入力完了しました！')
         f=open('data/dailyreport.json','r')
         j_r = json.load(f)
@@ -56,58 +56,58 @@ def main():
         json.dump(j_r,f_w)
         f_w.close()
 
-    with open('data/dailyreport.json','r') as j_r2:
-        dictDB = json.load(j_r2)
-        for days in dictDB.keys():
-            if name in dictDB[days]['text'].keys():
-                day_list.append(days)
-                diary_list.append(dictDB[days]['text'][name])
-    df_diary = pd.DataFrame()
-    df_diary['day']=day_list
-    df_diary['text']=diary_list
-    df_diary = df_diary.sort_values(by=['day'],ascending=False)
+        with open('data/dailyreport.json','r') as j_r2:
+            dictDB = json.load(j_r2)
+            for days in dictDB.keys():
+                if name in dictDB[days]['text'].keys():
+                    day_list.append(days)
+                    diary_list.append(dictDB[days]['text'][name])
+        df_diary = pd.DataFrame()
+        df_diary['day']=day_list
+        df_diary['text']=diary_list
+        df_diary = df_diary.sort_values(by=['day'],ascending=False)
 
-    with st.expander("クリックであなたの過去の日記を表示します"):
-        st.table(data=df_diary)
-
-
-    with open('data/dailyreport.json','r') as j_r_saved:
-        dict_diaryDB = json.load(j_r_saved)
-
-    happy_day_list=[]
-    happy_list=[]
-    for days in dict_diaryDB.keys():
-        for my_happy_scores in dict_diaryDB[days]['my_happy'].values():
-            if type(my_happy_scores) != str:
-                happy_day_list.append(days)
-                happy_list.append(my_happy_scores)
-
-    df_saved_happy = pd.DataFrame()
-    df_saved_happy['date']=happy_day_list
-    df_saved_happy['happy_score']=happy_list
+        with st.expander("クリックであなたの過去の日記を表示します"):
+            st.table(data=df_diary)
 
 
-    st.subheader('Team Well-being Timeline')
-    line = alt.Chart(df_saved_happy).mark_line(
-        color='red'
-    ).encode(
-        x=alt.X('date:T',axis=alt.Axis(format="%m月%d日",labelFontSize=14, ticks=False, titleFontSize=18,title='日付')),
-        y=alt.Y('mean(happy_score):Q',axis=alt.Axis(titleFontSize=18, title='Team Well-being'))
-    ).properties(
-        width=650,
-        height=400,
-        )
+        with open('data/dailyreport.json','r') as j_r_saved:
+            dict_diaryDB = json.load(j_r_saved)
 
-    points = alt.Chart(df_saved_happy).mark_circle().encode(
-        x=alt.X('date:T'),
-        y=alt.Y('happy_score:Q'),
-        size = 'count()'
+        happy_day_list=[]
+        happy_list=[]
+        for days in dict_diaryDB.keys():
+            for my_happy_scores in dict_diaryDB[days]['my_happy'].values():
+                if type(my_happy_scores) != str:
+                    happy_day_list.append(days)
+                    happy_list.append(my_happy_scores)
+
+        df_saved_happy = pd.DataFrame()
+        df_saved_happy['date']=happy_day_list
+        df_saved_happy['happy_score']=happy_list
+
+
+        st.subheader('Team Well-being Timeline')
+        line = alt.Chart(df_saved_happy).mark_line(
+            color='red'
+        ).encode(
+            x=alt.X('date:T',axis=alt.Axis(format="%m月%d日",labelFontSize=14, ticks=False, titleFontSize=18,title='日付')),
+            y=alt.Y('mean(happy_score):Q',axis=alt.Axis(titleFontSize=18, title='Team Well-being'))
         ).properties(
             width=650,
-            height=400
+            height=400,
             )
 
-    st.write(points+line)
+        points = alt.Chart(df_saved_happy).mark_circle().encode(
+            x=alt.X('date:T'),
+            y=alt.Y('happy_score:Q'),
+            size = 'count()'
+            ).properties(
+                width=650,
+                height=400
+                )
+
+        st.write(points+line)
 
 
 # ユーザ情報。引数
