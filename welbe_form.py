@@ -112,9 +112,13 @@ def main():
 
 
 # ユーザ情報。引数
-names = ['admin','001','002','003','004'] 
-usernames = ['admin','001','002','003','004']  # 入力フォームに入力された値と合致するか確認される
-passwords = ['admin','001','002','003','004']  # 入力フォームに入力された値と合致するか確認される
+#names = ['admin','001','002','003','004'] 
+#usernames = ['admin','001','002','003','004']  # 入力フォームに入力された値と合致するか確認される
+#passwords = ['admin','001','002','003','004']  # 入力フォームに入力された値と合致するか確認される
+
+names = st.secrets["usr"]
+usernames = st.secrets["usr"]
+passwords = st.secrets["pass"]
 
 # パスワードをハッシュ化。 リスト等、イテラブルなオブジェクトである必要がある
 hashed_passwords = stauth.Hasher(passwords).generate()
