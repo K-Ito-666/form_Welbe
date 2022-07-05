@@ -67,6 +67,7 @@ def main():
         r_diary_DB = r_diary.json()
         df_diary=pd.DataFrame.from_dict(r_diary_DB,orient='index')
         df_diary.columns=['日記テキスト']
+        df_diary = df_diary.sort_index()
 
         with st.expander("クリックであなたの過去の日記を表示します"):
             st.table(data=df_diary)
