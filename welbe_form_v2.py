@@ -107,7 +107,7 @@ hashed_passwords = stauth.Hasher(passwords).generate()
 
 # cookie_expiry_daysでクッキーの有効期限を設定可能。
 #認証情報の保持期間を設定でき値を0とするとアクセス毎に認証を要求する
-authenticator = stauth.Authenticate(names,usernames,hashed_passwords,'some_cookie_name','some_signature_key', cookie_expiry_days=1)
+authenticator = stauth.Authenticate([names,usernames,hashed_passwords],'some_cookie_name','some_signature_key', cookie_expiry_days=1,None)
 
 # ログインメソッドで入力フォームを配置
 st.title('個と場のWell-being日記')
