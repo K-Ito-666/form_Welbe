@@ -16,6 +16,9 @@ import json
 import streamlit_authenticator as stauth
 
 
+st.title('個と場のWell-being日記')
+name = "001"
+
 happy_score = ['選択して下さい（0〜10点）',0,1,2,3,4,5,6,7,8,9,10]
 today = datetime.date.today()
 day_list=[]
@@ -97,6 +100,8 @@ def main():
         st.write(points+line)
 
 
+"""
+        
 # ユーザ情報。引数
 names = ['admin','001','002','003','004','005'] 
 usernames = ['admin','001','002','003','004','005']  # 入力フォームに入力された値と合致するか確認される
@@ -132,3 +137,4 @@ elif authentication_status == False:
 elif authentication_status == None:
     st.warning('Please enter your username and password')
 
+"""
