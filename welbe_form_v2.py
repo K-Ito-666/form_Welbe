@@ -54,8 +54,9 @@ def main():
                     'location_other':location_other,
                     'timestamp':str(datetime.datetime.now())}
                     }
-        url = 'http://aoi.naist.jp:3000/'
-        requests.post(url + '/post',json=data_post)
+    
+        url = 'http://aoi.naist.jp/wellbeing'
+        st.write(requests.post(url + '/post',json=data_post))
         #requests
         st.write('入力完了しました！')
 
