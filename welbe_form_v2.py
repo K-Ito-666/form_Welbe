@@ -110,7 +110,7 @@ hashed_passwords = stauth.Hasher(passwords).generate()
 cred = {}
 for i,name in enumerate(names):
     cred[name]={}
-    cred[name]['name']=usernames[i]
+    cred[name]['usernames']=usernames[i]
     cred[name]['password']=passwords[i]
     
 authenticator = stauth.Authenticate(cred,'some_cookie_name','some_signature_key', cookie_expiry_days=1)
