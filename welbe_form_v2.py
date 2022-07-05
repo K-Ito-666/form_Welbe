@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #from asyncio.windows_events import NULL
 #from turtle import width
 import streamlit as st
@@ -10,11 +12,10 @@ import copy
 import plotly.figure_factory as ff
 import plotly.express as px
 import requests
-
 import json
 import streamlit_authenticator as stauth
 
-mood=["幸せではない","やや幸せではない","ふつう","やや幸せ","幸せ"]
+
 happy_score = ['選択して下さい（0〜10点）',0,1,2,3,4,5,6,7,8,9,10]
 today = datetime.date.today()
 day_list=[]
@@ -105,8 +106,7 @@ hashed_passwords = stauth.Hasher(passwords).generate()
 
 # cookie_expiry_daysでクッキーの有効期限を設定可能。
 #認証情報の保持期間を設定でき値を0とするとアクセス毎に認証を要求する
-authenticator = stauth.Authenticate(names, usernames, hashed_passwords,
-    'some_cookie_name', 'some_signature_key', cookie_expiry_days=1)
+authenticator = stauth.Authenticate(names,usernames,hashed_passwords,'some_cookie_name','some_signature_key', cookie_expiry_days=1)
 
 # ログインメソッドで入力フォームを配置
 st.title('個と場のWell-being日記')
