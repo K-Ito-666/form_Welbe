@@ -108,10 +108,12 @@ hashed_passwords = stauth.Hasher(passwords).generate()
 # cookie_expiry_daysでクッキーの有効期限を設定可能。
 #認証情報の保持期間を設定でき値を0とするとアクセス毎に認証を要求する
 cred = {}
+cred['usernames']={}
+cred['password']={}
 for i,name in enumerate(names):
-    cred[name]={}
-    cred[name]['usernames']=usernames[i]
-    cred[name]['password']=passwords[i]
+    cred['usernames'][name]={}
+    cred['usernames'][name]['name']=usernames[i]
+    cred['usernames'][name]['password']=passwords[i]
     
 authenticator = stauth.Authenticate(cred,'some_cookie_name','some_signature_key', cookie_expiry_days=1)
 
