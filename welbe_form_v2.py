@@ -53,7 +53,7 @@ def main():
                     'location_other':location_other,
                     'timestamp':str(datetime.datetime.now())}
                     }
-        url = 'http://127.0.0.1:5000/'
+        url = 'http://aoi.naist.jp:3000/'
         requests.post(url + '/post',json=data_post)
         #requests
         st.write('入力完了しました！')
@@ -69,14 +69,13 @@ def main():
         r_fb = requests.get(url + '/get_fb', params={'user':name})
         r_fb_DB = r_fb.json()
         df_fb=pd.DataFrame.from_dict(r_fb_DB,orient='index').T
-        st.write(df_fb)
 
-        st.subheader('Team Well-being Timeline')
+        st.subheader('週間Well-beingスコア')
         line = alt.Chart(df_fb).mark_line(
             color='blue'
         ).encode(
             x=alt.X('date:T',axis=alt.Axis(format="%m月%d日",labelFontSize=14, ticks=False, titleFontSize=18,title='日付')),
-            y=alt.Y('mean(my_happy):Q',axis=alt.Axis(titleFontSize=18, title='Team Well-being'))
+            y=alt.Y('mean(my_happy):Q',axis=alt.Axis(titleFontSize=18, title='Well-beingスコア'))
         ).properties(
             width=650,
             height=400,
@@ -97,9 +96,9 @@ def main():
 
 
 # ユーザ情報。引数
-names = ['admin','001','002','003','004'] 
-usernames = ['admin','001','002','003','004']  # 入力フォームに入力された値と合致するか確認される
-passwords = ['admin','001','002','003','004']  # 入力フォームに入力された値と合致するか確認される
+names = ['admin','001','002','003','004','005'] 
+usernames = ['admin','001','002','003','004','005']  # 入力フォームに入力された値と合致するか確認される
+passwords = ['admin','001','002','003','004','005']  # 入力フォームに入力された値と合致するか確認される
 
 # パスワードをハッシュ化。 リスト等、イテラブルなオブジェクトである必要がある
 hashed_passwords = stauth.Hasher(passwords).generate()
