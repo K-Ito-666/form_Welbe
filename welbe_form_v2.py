@@ -99,7 +99,8 @@ def main():
 
         st.write(points+line)
 
-
+main()
+        
 """
         
 # ユーザ情報。引数
