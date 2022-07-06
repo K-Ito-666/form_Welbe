@@ -56,8 +56,7 @@ def main():
                     }
     
         url = 'http://aoi.naist.jp/wellbeing'
-        st.write(requests.post(url + '/post',json=data_post))
-        #requests
+        requests.post(url + '/post',json=data_post)
         st.write('入力完了しました！')
 
         r_diary = requests.get(url + '/get_diary', params={'user':name})
