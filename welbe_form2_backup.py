@@ -102,7 +102,6 @@ def main():
 
 main()
         
-"""
         
 # ユーザ情報。引数
 names = ['admin','001','002','003','004','005'] 
@@ -138,5 +137,3 @@ elif authentication_status == False:
     st.error('Username/password is incorrect')
 elif authentication_status == None:
     st.warning('Please enter your username and password')
-
-"""
