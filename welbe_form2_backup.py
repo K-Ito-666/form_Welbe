@@ -17,7 +17,6 @@ import streamlit_authenticator as stauth
 
 
 st.title('個と場のWell-being日記')
-name = "001"
 
 happy_score = ['選択して下さい（0〜10点）',0,1,2,3,4,5,6,7,8,9,10]
 today = datetime.date.today()
@@ -99,8 +98,6 @@ def main():
             )
 
         st.write(points+line)
-
-main()
         
         
 # ユーザ情報。引数
