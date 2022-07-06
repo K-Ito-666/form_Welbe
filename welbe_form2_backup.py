@@ -124,6 +124,9 @@ authenticator = stauth.Authenticate(cred,'some_cookie_name','some_signature_key'
 st.title('個と場のWell-being日記')
 name, authentication_status, username = authenticator.login('Login', 'main')
 
+st.write(cred)
+st.write(authentication)
+
 # 返り値、authenticaton_statusの状態で処理を場合分け
 if authentication_status:
     # logoutメソッドでaurhenciationの値をNoneにする
