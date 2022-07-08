@@ -19,7 +19,7 @@ happy_score = ['選択して下さい（0〜10点）',0,1,2,3,4,5,6,7,8,9,10]
 today = datetime.date.today()
 day_list=[]
 diary_list=[]
-url = 'http://127.0.0.1:5000/'
+url = 'http://aoi.naist.jp/wellbeing'
 
 def main():
     r_fb = requests.get(url + '/get_fb', params={'user':name})
@@ -116,9 +116,9 @@ def main():
 
 
 # ユーザ情報。引数
-names = ['admin'] 
-usernames = ['admin']  # 入力フォームに入力された値と合致するか確認される
-passwords = ['admin']  # 入力フォームに入力された値と合致するか確認される
+names = ['001','admin'] 
+usernames = ['001','admin']  # 入力フォームに入力された値と合致するか確認される
+passwords = ['001','admin']  # 入力フォームに入力された値と合致するか確認される
 
 # パスワードをハッシュ化。 リスト等、イテラブルなオブジェクトである必要がある
 hashed_passwords = stauth.Hasher(passwords).generate()
